@@ -2,9 +2,11 @@ package com.example.ahmedmakaty.base.data;
 
 
 import com.example.ahmedmakaty.base.data.cache.user.UserCache;
+import com.example.ahmedmakaty.base.data.model.Article;
 import com.example.ahmedmakaty.base.data.remote.user.UserRemote;
 import com.example.ahmedmakaty.base.domain.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,4 +26,8 @@ public class UserDataRepository implements UserRepository {
         this.userRemote = userRemote;
     }
 
+    @Override
+    public Flowable<? extends ArrayList<Article>> getArticles() {
+        return userRemote.getArticles();
+    }
 }

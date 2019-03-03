@@ -1,7 +1,9 @@
 package com.example.ahmedmakaty.base.data.remote.user;
 
+import com.example.ahmedmakaty.base.data.model.Article;
 import com.example.ahmedmakaty.base.data.remote.ApiServiceInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,12 +22,7 @@ public class UserRemoteImp implements UserRemote {
     }
 
     @Override
-    public Flowable<String> generateToken(String deviceId) {
-        HashMap<String, Object> body = new HashMap<>();
-        body.put("DeviceId", deviceId);
-
-        return apiServiceInterface.generateToken(body).map(response -> {
-            return response;
-        });
+    public Flowable<? extends ArrayList<Article>> getArticles() {
+        return apiServiceInterface.getArticles("test", "ApiKey");
     }
 }

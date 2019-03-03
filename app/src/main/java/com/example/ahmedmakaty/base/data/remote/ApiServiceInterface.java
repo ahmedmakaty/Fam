@@ -1,5 +1,8 @@
 package com.example.ahmedmakaty.base.data.remote;
 
+import com.example.ahmedmakaty.base.data.model.Article;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,10 +16,6 @@ import retrofit2.http.Query;
 
 public interface ApiServiceInterface {
 
-
-    @POST("/api/Payfort/GenerateMobileToken")
-    Flowable<String> generateToken(@Body HashMap<String, Object> body);
-
-    @GET("/api/PaymentMethod/GetPaymentMethods")
-    Flowable<String> getPaymentMethods(@HeaderMap Map<String, String> headers, @Query("countryid") String countryId, @Query("languageId") String languageId);
+    @GET("https://newsapi.org/v2/everything")
+    Flowable<ArrayList<Article>> getArticles(@Query("q") String query, @Query("apiKey") String apiKey);
 }
