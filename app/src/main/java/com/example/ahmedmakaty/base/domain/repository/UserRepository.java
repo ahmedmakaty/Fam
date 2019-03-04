@@ -13,5 +13,5 @@ import io.reactivex.Flowable;
 
 public interface UserRepository {
 
-    Flowable<? extends ArrayList<Article>> getArticles();
+    Flowable<? extends ArrayList<Article>> getArticles(int page);
 }

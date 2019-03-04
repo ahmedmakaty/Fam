@@ -1,5 +1,6 @@
 package com.example.ahmedmakaty.base.data.remote.user;
 
+import com.example.ahmedmakaty.base.data.Constants;
 import com.example.ahmedmakaty.base.data.model.Article;
 import com.example.ahmedmakaty.base.data.remote.ApiServiceInterface;
 
@@ -22,7 +23,8 @@ public class UserRemoteImp implements UserRemote {
     }
 
     @Override
-    public Flowable<? extends ArrayList<Article>> getArticles() {
-        return apiServiceInterface.getArticles("test", "ApiKey");
+    public Flowable<? extends ArrayList<Article>> getArticles(int page) {
+        return apiServiceInterface.getArticles("league of legends", Constants.NEWS_API_KEY, 15, page).map(response ->
+                (ArrayList<Article>) response.getArticles());
     }
 }

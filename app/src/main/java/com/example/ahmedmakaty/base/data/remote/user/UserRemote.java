@@ -11,5 +11,5 @@ import io.reactivex.Flowable;
 
 public interface UserRemote {
 
-    Flowable<? extends ArrayList<Article>> getArticles();
+    Flowable<? extends ArrayList<Article>> getArticles(int page);
 }

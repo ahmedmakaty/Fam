@@ -27,7 +27,7 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Flowable<? extends ArrayList<Article>> getArticles() {
-        return userRemote.getArticles();
+    public Flowable<? extends ArrayList<Article>> getArticles(int page) {
+        return userRemote.getArticles(page);
     }
 }

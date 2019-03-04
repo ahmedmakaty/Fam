@@ -4,8 +4,10 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
+    android:gravity="center"
     android:background="@color/colorPrimary"
-    tools:ignore="MissingPrefix">
+    app:contentInsetStart="0dp"
+    app:title="@string/main_title">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,7 +15,6 @@
 
         <TextView
             android:id="@+id/txtTitle"
-            fontPath="fonts/ge_dinar_one_medium.otf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

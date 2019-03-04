@@ -1,5 +1,6 @@
 package com.example.ahmedmakaty.base.injection.module.screens;
 
+import com.example.ahmedmakaty.base.domain.interactor.GetArticlesUseCase;
 import com.example.ahmedmakaty.base.presentation.screens.MainScreen.MainViewModelFactory;
 
 import dagger.Module;
@@ -9,7 +10,7 @@ import dagger.Provides;
 public class MainScreenModule {
 
     @Provides
-    MainViewModelFactory providesMainViewModelFactory() {
-        return new MainViewModelFactory();
+    MainViewModelFactory providesMainViewModelFactory(GetArticlesUseCase getArticlesUseCase) {
+        return new MainViewModelFactory(getArticlesUseCase);
     }
 }

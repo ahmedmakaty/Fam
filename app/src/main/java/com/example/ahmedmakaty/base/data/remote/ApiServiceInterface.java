@@ -1,6 +1,7 @@
 package com.example.ahmedmakaty.base.data.remote;
 
 import com.example.ahmedmakaty.base.data.model.Article;
+import com.example.ahmedmakaty.base.data.model.ArticlesResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,5 +18,5 @@ import retrofit2.http.Query;
 public interface ApiServiceInterface {
 
     @GET("https://newsapi.org/v2/everything")
-    Flowable<ArrayList<Article>> getArticles(@Query("q") String query, @Query("apiKey") String apiKey);
+    Flowable<ArticlesResponse> getArticles(@Query("q") String query, @Query("apiKey") String apiKey, @Query("pageSize") int pageSize, @Query("page") int page);
 }

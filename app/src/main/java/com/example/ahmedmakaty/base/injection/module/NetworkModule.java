@@ -54,7 +54,7 @@ public class NetworkModule {
         return new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
-                .baseUrl("www.google.com")
+                .baseUrl("http://newsapi.org")
                 .build();
     }
 }
