@@ -24,7 +24,7 @@ public class UserRemoteImp implements UserRemote {
 
     @Override
     public Flowable<? extends ArrayList<Article>> getArticles(int page) {
-        return apiServiceInterface.getArticles("league of legends", Constants.NEWS_API_KEY, 15, page).map(response ->
+        return apiServiceInterface.getArticles("android", Constants.NEWS_API_KEY, 15, page).map(response ->
                 (ArrayList<Article>) response.getArticles());
     }
 }

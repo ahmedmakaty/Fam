@@ -4,25 +4,11 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:gravity="center"
     android:background="@color/colorPrimary"
-    app:contentInsetStart="0dp"
-    app:title="@string/main_title">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@android:color/white"
-            tools:text="Dummy List" />
-
-
-    </FrameLayout>
+    android:gravity="center"
+    android:paddingRight="?attr/actionBarSize"
+    app:titleTextColor="#fff"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    app:contentInsetStartWithNavigation="0dp">
 
 </android.support.v7.widget.Toolbar>

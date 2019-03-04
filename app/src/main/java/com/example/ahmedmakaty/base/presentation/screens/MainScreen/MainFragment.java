@@ -48,8 +48,6 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
     RecyclerView list;
     @BindView(R.id.empty_list_note)
     TextView emptyState;
-    @BindView(R.id.txtTitle)
-    TextView title;
     @BindView(R.id.swipe_to_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -175,7 +173,6 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         ((BaseActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.setTitle(getResources().getString(R.string.main_title));
         ((BaseActivity) getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.main_title));
-        title.setText(getString(R.string.main_title));
         //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
 

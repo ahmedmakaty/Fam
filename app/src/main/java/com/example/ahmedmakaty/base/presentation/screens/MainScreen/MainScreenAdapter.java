@@ -5,13 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ahmedmakaty.base.R;
 import com.example.ahmedmakaty.base.data.model.Article;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +58,17 @@ public class MainScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Article article = articles.get(position);
                 ArticleViewHolder mViewHolder = (ArticleViewHolder) holder;
 
+                Glide.with(mViewHolder.itemView.getContext())
+                        .load(article.getUrlToImage())
+                        .into(mViewHolder.header);
+
                 mViewHolder.title.setText(article.getTitle());
+                mViewHolder.source.setText(article.getSource().getName());
+                mViewHolder.desc.setText(article.getDescription());
+                mViewHolder.author.setText(article.getAuthor());
+
+
+                mViewHolder.date.setText(formatPrettyDate(article.getPublishedAt(), "yyyy-MM-dd'T'HH:mm:ss", "MMM d HH:mm"));
 
                 mViewHolder.itemView.setOnClickListener((View v) -> {
                     articleClickListener.onArticleClicked(article);
@@ -83,6 +98,20 @@ public class MainScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    private String formatPrettyDate(String publishedAt, String fromDormat, String toFormat) {
+        String time = publishedAt;
+        SimpleDateFormat spf = new SimpleDateFormat(fromDormat);
+        Date newDate = null;
+        try {
+            newDate = spf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        spf = new SimpleDateFormat(toFormat);
+        time = spf.format(newDate);
+        return time;
+    }
+
     @Override
     public int getItemCount() {
         return articles.size();
@@ -90,6 +119,16 @@ public class MainScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.header)
+        ImageView header;
+        @BindView(R.id.source)
+        TextView source;
+        @BindView(R.id.desc)
+        TextView desc;
+        @BindView(R.id.date)
+        TextView date;
+        @BindView(R.id.author)
+        TextView author;
         @BindView(R.id.title)
         TextView title;
 
