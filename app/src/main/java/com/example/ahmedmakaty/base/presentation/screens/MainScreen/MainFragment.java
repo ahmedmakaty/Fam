@@ -193,9 +193,11 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
     private void showProgress(Boolean show) {
         if (progressDialog != null) {
             if (show) {
-                progressDialog.show();
+                //progressDialog.show();
+                list.showShimmerAdapter();
             } else {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
+                list.hideShimmerAdapter();
             }
         }
     }

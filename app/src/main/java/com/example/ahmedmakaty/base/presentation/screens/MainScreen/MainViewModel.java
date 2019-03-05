@@ -42,7 +42,7 @@ public class MainViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-
+        getArticlesUseCase.dispose();
     }
 
     public void getFeed() {
@@ -71,7 +71,7 @@ public class MainViewModel extends ViewModel {
 
             @Override
             public void onError(Throwable t) {
-                if (t.getClass() == NoInternetConnectionException.class){
+                if (t.getClass() == NoInternetConnectionException.class) {
                     noInternetSLD.postValue(true);
                 }
                 apiErrorSLD.postValue("An error has occurred");
