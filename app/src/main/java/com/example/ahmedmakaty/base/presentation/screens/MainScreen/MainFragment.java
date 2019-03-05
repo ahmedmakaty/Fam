@@ -185,9 +185,6 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         ((BaseActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.setTitle(getResources().getString(R.string.main_title));
         ((BaseActivity) getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.main_title));
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
     private void showProgress(Boolean show) {
