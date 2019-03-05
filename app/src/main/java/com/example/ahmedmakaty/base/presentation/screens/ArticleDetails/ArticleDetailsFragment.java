@@ -147,7 +147,7 @@ public class ArticleDetailsFragment extends BaseFragment {
 
     @OnClick(R.id.more)
     public void moreClicked(){
-        Toast.makeText(getContext(), "more", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "more", Toast.LENGTH_SHORT).show();
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleDetailsViewModel.getArticle().getUrl()));
         startActivity(browserIntent);
     }

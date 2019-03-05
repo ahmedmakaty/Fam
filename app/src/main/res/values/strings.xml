@@ -2,4 +2,6 @@
     <string name="app_name">Fam</string>
     <string name="main_title">FAM</string>
     <string name="read_more">Read more</string>
+    <string name="loading">Loading ...</string>
+    <string name="no_results">No results found</string>
 </resources>

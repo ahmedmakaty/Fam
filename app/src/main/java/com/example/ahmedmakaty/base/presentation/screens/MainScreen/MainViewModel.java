@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.example.ahmedmakaty.base.data.model.Article;
+import com.example.ahmedmakaty.base.domain.exception.NoInternetConnectionException;
 import com.example.ahmedmakaty.base.domain.interactor.GetArticlesUseCase;
 import com.google.gson.Gson;
 
@@ -28,6 +29,7 @@ public class MainViewModel extends ViewModel {
     MutableLiveData<Boolean> loadMoreSLD = new MutableLiveData<>();
     MutableLiveData<Boolean> progressSLD = new MutableLiveData<>();
     MutableLiveData<String> apiErrorSLD = new MutableLiveData<>();
+    MutableLiveData<Boolean> noInternetSLD = new MutableLiveData<>();
 
     int page = 1;
     boolean loading = false;
@@ -69,6 +71,9 @@ public class MainViewModel extends ViewModel {
 
             @Override
             public void onError(Throwable t) {
+                if (t.getClass() == NoInternetConnectionException.class){
+                    noInternetSLD.postValue(true);
+                }
                 apiErrorSLD.postValue("An error has occurred");
                 loading = false;
                 if (page == 1) {

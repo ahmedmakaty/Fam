@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.ahmedmakaty.base.R;
 import com.example.ahmedmakaty.base.data.Constants;
 import com.example.ahmedmakaty.base.data.model.Article;
@@ -45,7 +46,7 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.list)
-    RecyclerView list;
+    ShimmerRecyclerView list;
     @BindView(R.id.empty_list_note)
     TextView emptyState;
     @BindView(R.id.swipe_to_refresh)
@@ -79,14 +80,13 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         ButterKnife.bind(this, view);
 
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading ...");
+        progressDialog.setMessage(getString(R.string.loading));
 
         initializeToolbar();
 
-        initClickListeners();
-
         setupRecyclerView();
 
+        //Swipe to refresh functionality
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -108,16 +108,24 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         initiateLiveObservers();
 
         mainViewModel.getFeed();
-
     }
 
+    //Initiating live data observers
     private void initiateLiveObservers() {
         mainViewModel.loadMoreSLD.observe(this, this::onLoadMore);
         mainViewModel.progressSLD.observe(this, this::showProgress);
+        mainViewModel.noInternetSLD.observe(this, this::showNoInternet);
         mainViewModel.articlesSLD.observe(this, this::addArticles);
+        mainViewModel.apiErrorSLD.observe(this, this::showErrorMessage);
+    }
+
+    private void showNoInternet(Boolean aBoolean) {
+        emptyState.setVisibility(View.VISIBLE);
     }
 
     private void addArticles(ArrayList<Article> articles) {
+        list.hideShimmerAdapter();
+        emptyState.setVisibility(View.GONE);
         mainScreenAdapter.setData(articles);
     }
 
@@ -126,7 +134,9 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         mainScreenAdapter = new MainScreenAdapter(this);
         list.setLayoutManager(linearLayoutManager);
         list.setAdapter(mainScreenAdapter);
+        list.showShimmerAdapter();
 
+        //Adding a custom scroll listener to detect reaching the end of the list
         list.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
@@ -145,15 +155,17 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         });
     }
 
+    //On loading state changed, adding a loading item and calling the next page
+    // then removing the loading item after getting the results
     private void onLoadMore(Boolean loading) {
         if (loading) {
             //Add a dummy state to the list to show loading
+            //increment page count
             mainViewModel.addDummyLoadingObjectToList();
             mainViewModel.page++;
             mainViewModel.getFeed();
         } else {
-            //remo ve loading item
-            //increment page count
+            //remove loading item
             mainViewModel.removeDummyObjectFromList();
         }
     }
@@ -178,14 +190,6 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
 
     }
 
-    private void initClickListeners() {
-
-//        addNewCard.setOnClickListener((View v) -> {
-//            goToPayfortScreen();
-//        });
-
-    }
-
     private void showProgress(Boolean show) {
         if (progressDialog != null) {
             if (show) {
@@ -205,6 +209,7 @@ public class MainFragment extends BaseFragment implements MainScreenAdapter.Arti
         goToArticleDetailsScreen(article);
     }
 
+    //navigating to article details screen on recycler item click
     private void goToArticleDetailsScreen(Article article) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
         intent.putExtra(Constants.ARTICLE_MODEL, new Gson().toJson(article));
